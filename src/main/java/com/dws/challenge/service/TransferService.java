@@ -3,12 +3,14 @@ package com.dws.challenge.service;
 import com.dws.challenge.domain.Account;
 import com.dws.challenge.repository.AccountsRepository;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
+@Slf4j
 class TransferService {
     @Getter
     private final AccountsRepository accountsRepository;
@@ -37,6 +39,8 @@ class TransferService {
                 accountTo.credit(amount);
             }
         }
+
+        log.info("Successfully transferred "+ amount + " from " + accountFrom + " to " + accountTo );
 
         notifyTransfer(accountTo,accountFrom,amount);
     }
